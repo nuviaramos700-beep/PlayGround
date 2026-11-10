@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#071a2e" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="description" content="VITAL FORCE: EMERGENCIAS — simulador hospitalario educativo en 3D." />
+    <title>VITAL FORCE: EMERGENCIAS</title>
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="world" aria-label="Mundo tridimensional del hospital"></canvas>
+      <div class="vignette"></div>
+      <header class="topbar">
+        <button class="brand" data-action="home"><span class="brand-mark">✚</span><span><b>VITAL FORCE</b><small>EMERGENCIAS <i>SIMULATOR</i></small></span></button>
+        <div class="location"><span class="live-dot"></span><span id="locationName">ALA DE OBSERVACIÓN</span><span class="slash">/</span><span id="clock">08:42</span></div>
+        <div class="top-right"><button class="icon-btn" data-action="sound" aria-label="Sonido">◖</button><button class="icon-btn" data-action="settings" aria-label="Configuración">⚙</button><div class="profile"><span class="avatar-mini">BR</span><span><b>Enfermería</b><small>NIVEL <strong id="levelTop">01</strong></small></span></div></div>
+      </header>
+      <aside class="left-rail">
+        <div class="rail-label">CENTRO DE CONTROL</div>
+        <button class="nav-item active" data-action="mission"><span>▣</span>Casos<span class="nav-count" id="caseCount">04</span></button>
+        <button class="nav-item" data-action="chart"><span>⊙</span>Expediente</button>
+        <button class="nav-item" data-action="academy"><span>⌘</span>Academia</button>
+        <button class="nav-item" data-action="inventory"><span>▤</span>Equipo</button>
+        <div class="rail-divider"></div>
+        <div class="rail-label">TU PROGRESO</div>
+        <div class="level-card"><div class="level-line"><span>NIVEL <b id="levelLabel">01</b></span><span id="xpLabel">120 / 250 XP</span></div><div class="xp-track"><i id="xpBar"></i></div><div class="level-sub">EN FORMACIÓN <span>✦ <b id="coinLabel">240</b></span></div></div>
+        <button class="nav-item" data-action="achievements"><span>✧</span>Logros</button>
+        <button class="nav-item" data-action="shop"><span>◇</span>Personalizar</button>
+        <button class="nav-item" data-action="stats"><span>▥</span>Estadísticas</button>
+        <div class="rail-spacer"></div>
+        <div class="rail-footer"><span class="status-pill"><i></i> SIMULACIÓN ACTIVA</span><small>VITAL FORCE · v1.0</small></div>
+      </aside>
+      <main class="game-hud">
+        <section class="mission-banner"><div class="mission-icon">✚</div><div class="mission-copy"><small>CASO ACTIVO <span id="caseId">VF–001</span></small><strong id="missionTitle">Evaluación de rutina</strong><span id="missionDescription">Completa la valoración inicial y registra los signos vitales.</span></div><button class="text-button" data-action="mission">VER CASOS <span>↗</span></button></section>
+        <section class="patient-chip" id="patientChip"><div class="patient-avatar" id="patientAvatar">AR</div><div class="patient-info"><small>PACIENTE ASIGNADO</small><strong id="patientName">Alex Rivera <i>28</i></strong><span id="patientReason">Cansancio · Sala de observación</span></div><button class="chip-open" data-action="chart" title="Abrir expediente">↗</button></section>
+        <section class="objective-panel"><div class="section-overline">OBJETIVOS DEL CASO <span id="objectiveProgress">0 / 6</span></div><div class="objective-list" id="objectiveList"></div></section>
+      </main>
+      <div class="right-hud"><div class="mini-map"><div class="map-head"><span>PLANO DE PLANTA</span><button data-action="map">⤢</button></div><div class="map-art" id="mapArt"><span class="map-room r1">RECEPCIÓN</span><span class="map-room r2">CONSULTA</span><span class="map-room r3">OBSERVACIÓN</span><span class="map-room r4">URGENCIAS</span><span class="map-corridor"></span><i class="map-player">▲</i><i class="map-patient">●</i></div><div class="map-legend"><span><i class="you-dot"></i> TÚ</span><span><i class="patient-dot"></i> PACIENTE</span></div></div><div class="nearby-card"><div class="nearby-label"><span class="live-dot"></span> CERCA DE TI</div><strong id="nearbyName">Alex Rivera</strong><span id="nearbyDetail">Paciente · 2.4 m</span><button class="primary-small" data-action="interact">INICIAR VALORACIÓN <b>↗</b></button></div></div>
+      <div class="control-hint"><span class="keycap">W</span><span class="keycap">A</span><span class="keycap">S</span><span class="keycap">D</span><span> MOVER</span><i></i><span class="keycap">SHIFT</span><span>CORRER</span><i></i><span class="keycap">E</span><span>INTERACTUAR</span></div>
+      <div class="touch-controls" aria-label="Controles táctiles"><div class="touch-pad"><button data-move="forward">▲</button><div><button data-move="left">◀</button><button data-move="back">▼</button><button data-move="right">▶</button></div></div><button class="touch-interact" data-action="interact">E<br><small>USAR</small></button></div>
+      <div class="toast" id="toast"></div>
+      <div class="modal-root" id="modalRoot"></div>
+      <section class="intro" id="intro"><div class="intro-grid"></div><div class="intro-top"><div class="brand-mark large">✚</div><span>SIMULADOR CLÍNICO · EDICIÓN EDUCATIVA</span><div class="intro-tag">BUILD 01.26 <i></i> WEBGL</div></div><div class="intro-content"><div class="intro-kicker"><span></span> TU TURNO COMIENZA AHORA</div><h1>VITAL FORCE<br><em>EMERGENCIAS</em></h1><p>Aprende. Evalúa. Actúa.</p><div class="intro-rule"></div><div class="intro-credit">UN VIDEOJUEGO CREADO POR<br><strong>BRANDON RAMOS CHLO</strong></div><button class="start-button" id="startGame"><span>ENTRAR AL HOSPITAL</span><b>→</b></button><div class="intro-foot"><span>EXPLORACIÓN 3D · PROCEDIMIENTOS · CASOS CLÍNICOS</span><button data-action="about">ACERCA DEL JUEGO</button><button data-action="credits">CRÉDITOS</button></div></div><div class="intro-side"><span>01</span><i></i><span>03</span><small>VITAL FORCE<br>MEDICAL SIMULATION</small></div><div class="intro-bottom"><span>ENTORNO DE APRENDIZAJE SIMULADO</span><span>LOS CASOS Y PACIENTES SON FICTICIOS</span></div></section>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
